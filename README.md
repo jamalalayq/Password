@@ -1,3 +1,3 @@
 # Password
 
-A description of this package.
+A password data type.
