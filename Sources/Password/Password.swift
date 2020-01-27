@@ -36,12 +36,15 @@ public struct Password: ExpressibleByStringLiteral {
         }
         return true
     }
+
+    public var isNotValid: Bool { !isValid }
     
     public func validate() throws {
         guard !self.value.isEmpty else { throw PasswordErrors.empty }
         guard self.value.count >= length else { throw PasswordErrors.invalidLength }
-        if let confirmed = self.confirmation, confirmed != value {
-            throw PasswordErrors.invalidMatching
+        if let confirmed = self.confirmation {
+            if confirmed.isEmpty { throw PasswordErrors.invalidConfirmPassword }
+            if confirmed != value { throw PasswordErrors.invalidMatching }
         }
     }
         
@@ -53,6 +56,7 @@ public struct Password: ExpressibleByStringLiteral {
         case empty
         case invalidLength
         case invalidMatching
+        case invalidConfirmPassword
     }
     
 }
