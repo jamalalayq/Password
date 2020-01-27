@@ -29,12 +29,12 @@ public struct Password: ExpressibleByStringLiteral {
     }
     
     public var isValid: Bool {
-        guard !self.value.isEmpty else { return false }
-        guard self.value.count >= length else { return false }
-        if let confirmed = self.confirmation, confirmed != value {
+        do {
+            try validate()
+            return true
+        } catch {
             return false
         }
-        return true
     }
 
     public var isNotValid: Bool { !isValid }
