@@ -13,7 +13,9 @@ let package = Package(
     products: [
         .library(
             name: "Password",
-            targets: ["Password"]),
+            type: .dynamic,
+            targets: ["Password"]
+        ),
     ],
 
     targets: [
